@@ -12,6 +12,14 @@
                   <input class="form-control" type="text" v-model="user.email">
                 </div>
                 <button class="btn btn-primary" @click="submit">submit</button>
+                <hr>
+                <button class="btn btn-success" @click="fetchData">Get Data</button>
+                <br><br>
+                <ul class="list-group">
+                  <li class="list-group-item" v-for="u in users" :key="u">
+                    {{ u.username}} - {{ u.email}}
+                  </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -24,13 +32,31 @@
           user: {
             username: '',
             email: ''
-          }
+          },
+          users: []
         }
       },
       methods: {
         submit() {
-          this.$http.post('https://vue-resource-fef4c.firebaseio.com/')
-
+          this.$http.post('https://vue-resource-fef4c.firebaseio.com/data.json', this.user)
+              .then(response => {
+                console.log(response)
+              }, error => {
+                console.log(error)
+              })
+        },
+        fetchData() {
+          this.$http.get('https://vue-resource-fef4c.firebaseio.com/data.json')
+              .then(response => {
+                return response.json()
+              }).then(data => {
+                const resultArray = []
+                for(let key in data){
+                  resultArray.push(data[key])
+                }
+                this.users = resultArray
+              })
+                
         }
       }
     }
