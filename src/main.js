@@ -6,6 +6,8 @@ Vue.config.productionTip = false
 
 Vue.use(VueResource)
 
+Vue.http.options.root = 'https://vue-resource-fef4c.firebaseio.com/data.json'
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')
