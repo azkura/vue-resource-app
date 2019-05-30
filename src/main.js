@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './App.vue'
-import { request } from 'https';
 
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
 
-Vue.http.options.root = 'https://vue-resource-fef4c.firebaseio.com/data.json'
+Vue.http.options.root = 'https://vue-resource-fef4c.firebaseio.com/'
 Vue.http.interceptors.push((request, next) =>{
   console.log(request)
   if(request.method == 'POST'){
